@@ -1,26 +1,191 @@
 @import "tailwindcss";
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+Devanagari:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap");
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+/* ============================================================
+   Hastakala — Design System Tokens (Tailwind v4 @theme)
+   ============================================================ */
 
 @theme inline {
+  /* ── Brand Colors ───────────────────────────────────────── */
+  --color-saffron-50:  #fff8ed;
+  --color-saffron-100: #ffefd0;
+  --color-saffron-200: #ffdba0;
+  --color-saffron-300: #ffc165;
+  --color-saffron-400: #ff9e30;
+  --color-saffron-500: #ff8000;   /* primary brand */
+  --color-saffron-600: #e86500;
+  --color-saffron-700: #c14d00;
+  --color-saffron-800: #9a3d06;
+  --color-saffron-900: #7c3409;
+
+  --color-terracotta-50:  #fdf3f0;
+  --color-terracotta-100: #fbe4dc;
+  --color-terracotta-200: #f8ccbf;
+  --color-terracotta-300: #f2a98f;
+  --color-terracotta-400: #e97d5a;
+  --color-terracotta-500: #d95f38;   /* accent */
+  --color-terracotta-600: #c04828;
+  --color-terracotta-700: #9f3a21;
+  --color-terracotta-800: #82321f;
+  --color-terracotta-900: #6c2d1f;
+
+  --color-indigo-craft-50:  #eef2ff;
+  --color-indigo-craft-100: #e0e8ff;
+  --color-indigo-craft-200: #c7d4fe;
+  --color-indigo-craft-300: #a5b4fc;
+  --color-indigo-craft-400: #818cf8;
+  --color-indigo-craft-500: #5f4ee8;   /* secondary brand */
+  --color-indigo-craft-600: #4f3fd4;
+  --color-indigo-craft-700: #4232b8;
+  --color-indigo-craft-800: #382b96;
+  --color-indigo-craft-900: #312878;
+
+  --color-gold-50:  #fefce8;
+  --color-gold-100: #fef9c3;
+  --color-gold-200: #fef08a;
+  --color-gold-300: #fde047;
+  --color-gold-400: #facc15;
+  --color-gold-500: #e8a900;   /* GI tag badge */
+  --color-gold-600: #ca8a04;
+  --color-gold-700: #a16207;
+
+  /* ── Neutral / Surface ──────────────────────────────────── */
+  --color-surface-0:   #ffffff;
+  --color-surface-50:  #fafaf8;
+  --color-surface-100: #f5f3ef;
+  --color-surface-200: #ede9e1;
+  --color-surface-300: #d6cfc4;
+  --color-surface-400: #b5ab9c;
+  --color-surface-500: #8c8070;
+  --color-surface-600: #6b5f52;
+  --color-surface-700: #4e4439;
+  --color-surface-800: #332d25;
+  --color-surface-900: #1a1711;
+
+  /* ── Semantic ────────────────────────────────────────────── */
+  --color-success: #16a34a;
+  --color-warning: #d97706;
+  --color-error:   #dc2626;
+  --color-info:    #0284c7;
+
+  /* ── Typography ─────────────────────────────────────────── */
+  --font-sans:      "Inter", "Noto Sans Devanagari", sans-serif;
+  --font-devanagari:"Noto Sans Devanagari", sans-serif;
+  --font-display:   "Playfair Display", serif;
+
+  /* ── Border Radius ──────────────────────────────────────── */
+  --radius-xs:  4px;
+  --radius-sm:  8px;
+  --radius-md:  12px;
+  --radius-lg:  16px;
+  --radius-xl:  24px;
+  --radius-2xl: 32px;
+  --radius-full: 9999px;
+
+  /* ── Shadows ─────────────────────────────────────────────── */
+  --shadow-card:   0 2px 12px 0 rgba(26,23,17,0.08);
+  --shadow-hover:  0 8px 32px 0 rgba(26,23,17,0.14);
+  --shadow-modal:  0 24px 64px 0 rgba(26,23,17,0.20);
+
+  /* ── Background & Foreground aliases ────────────────────── */
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+}
+
+/* ============================================================
+   CSS Custom Properties (light / dark)
+   ============================================================ */
+:root {
+  --background: #fafaf8;
+  --foreground: #1a1711;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #1a1711;
+    --foreground: #f5f3ef;
   }
+}
+
+/* ============================================================
+   Base styles
+   ============================================================ */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Hindi / Devanagari text gets the correct font */
+:lang(hi),
+:lang(mr),
+.font-devanagari {
+  font-family: var(--font-devanagari);
+}
+
+/* ============================================================
+   Utility classes for Hastakala
+   ============================================================ */
+
+/* Container */
+.container-hastakala {
+  width: 100%;
+  max-width: 1280px;
+  margin-inline: auto;
+  padding-inline: 1rem;
+}
+
+@media (min-width: 640px)  { .container-hastakala { padding-inline: 1.5rem; } }
+@media (min-width: 1024px) { .container-hastakala { padding-inline: 2rem;   } }
+
+/* Card */
+.card {
+  background: var(--color-surface-0);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+.card:hover {
+  box-shadow: var(--shadow-hover);
+  transform: translateY(-2px);
+}
+
+/* GI Tag badge */
+.badge-gi {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: var(--color-gold-100);
+  color: var(--color-gold-700);
+  border: 1px solid var(--color-gold-300);
+  border-radius: var(--radius-full);
+  padding: 2px 10px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+/* Saffron gradient used in hero / CTA buttons */
+.gradient-saffron {
+  background: linear-gradient(135deg, var(--color-saffron-500), var(--color-terracotta-500));
+}
+
+/* Focus ring */
+:focus-visible {
+  outline: 2px solid var(--color-saffron-500);
+  outline-offset: 2px;
 }
