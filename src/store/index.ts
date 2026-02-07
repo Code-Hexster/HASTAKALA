@@ -1,2 +1,2 @@
-// Zustand stores — cartStore, authStore, languageStore, etc.
-export {};
+// Zustand stores
+export { useAuthStore } from "./authStore";
