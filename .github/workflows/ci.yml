@@ -1,0 +1,43 @@
+name: CI — Lint & Build
+
+on:
+  push:
+    branches: [main, dev]
+  pull_request:
+    branches: [main, dev]
+
+jobs:
+  lint-and-build:
+    name: Lint & Build Check
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      # ── Frontend ──────────────────────────────────────────
+      - name: Install frontend dependencies
+        run: npm ci
+
+      - name: Lint frontend
+        run: npm run lint
+
+      - name: Build frontend
+        run: npm run build
+        env:
+          NEXT_PUBLIC_API_URL: http://localhost:5000/api
+
+      # ── Backend ───────────────────────────────────────────
+      - name: Install backend dependencies
+        working-directory: server
+        run: npm ci
+
+      - name: Check Prisma schema
+        working-directory: server
+        run: npx prisma validate
