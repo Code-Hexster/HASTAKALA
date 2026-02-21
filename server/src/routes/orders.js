@@ -1,13 +1,25 @@
 const router = require("express").Router();
+const { authenticate } = require("../middleware/auth");
+const {
+  createCheckoutOrder,
+  verifyPayment,
+  getMyOrders,
+  getOrder,
+} = require("../controllers/order.controller");
 
-// POST /api/orders
-router.post("/", (req, res) => {
-  res.json({ success: true, message: "Create order — coming soon" });
-});
+// All order routes require authentication
+router.use(authenticate);
 
-// GET /api/orders/:id
-router.get("/:id", (req, res) => {
-  res.json({ success: true, message: `Order ${req.params.id} — coming soon` });
-});
+// GET    /api/orders             — list my orders
+router.get("/", getMyOrders);
+
+// GET    /api/orders/:id         — get single order
+router.get("/:id", getOrder);
+
+// POST   /api/orders/checkout    — create Razorpay order from cart
+router.post("/checkout", createCheckoutOrder);
+
+// POST   /api/orders/verify      — verify Razorpay payment signature
+router.post("/verify", verifyPayment);
 
 module.exports = router;
