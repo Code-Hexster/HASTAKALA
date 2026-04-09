@@ -21,6 +21,8 @@ app.use("/api/orders",   require("./routes/orders"));
 app.use("/api/artisans", require("./routes/artisans"));
 app.use("/api/upload",   require("./routes/upload"));
 app.use("/api/cart",     require("./routes/cart"));
+app.use("/api/webhooks", require("./routes/webhooks"));
+app.use("/api/invoices", require("./routes/invoices"));
 
 // ── Health check ────────────────────────────────────────────
 app.get("/api/health", (req, res) => {
