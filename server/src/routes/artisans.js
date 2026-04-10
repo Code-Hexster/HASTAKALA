@@ -1,13 +1,11 @@
 const router = require("express").Router();
+const { authenticate, authorize } = require("../middleware/auth");
+const { getArtisanOrders, getArtisanDashboard } = require("../controllers/artisan.controller");
 
-// GET /api/artisans
-router.get("/", (req, res) => {
-  res.json({ success: true, message: "Artisans list — coming soon" });
-});
+// GET /api/artisans/orders — artisan's incoming orders
+router.get("/orders", authenticate, authorize("ARTISAN"), getArtisanOrders);
 
-// GET /api/artisans/:id
-router.get("/:id", (req, res) => {
-  res.json({ success: true, message: `Artisan ${req.params.id} — coming soon` });
-});
+// GET /api/artisans/dashboard — artisan stats
+router.get("/dashboard", authenticate, authorize("ARTISAN"), getArtisanDashboard);
 
 module.exports = router;
